@@ -1,0 +1,145 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 確保響應式顯示 -->
+    <title>百分比練習作業</title>
+    <meta name="title-zh" content="百分比轉變練習">
+    <meta name="title-en" content="Percentage Change Practice">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- 語言切換按鈕 -->
+    <div class="lang-switch">
+        <button id="btn-lang" class="lang-btn">
+            <span class="zh">EN</span>
+            <span class="en">中</span>
+        </button>
+    </div>
+
+    <h1>
+        <span class="zh">百分比變化練習</span>
+        <span class="en">Percentage Change</span>
+    </h1>
+
+    <!-- 狀態列：顯示目標、分數和正確題數 -->
+    <div class="status-bar">
+        <div class="status-item goal-text">
+            <span class="zh">目標: 150</span>
+            <span class="en">Target: 150</span>
+        </div>
+        <div class="status-item">
+            <span class="zh">分數: </span>
+            <span class="en">Score: </span>
+            <span id="scoreVal" class="score-text">0</span>
+        </div>
+        <div class="status-item">
+            <span class="zh">正確: </span>
+            <span class="en">Correct: </span>
+            <span id="correctVal">0</span>
+        </div>
+    </div>
+
+    <!-- 進度條：顯示達成目標的進度 -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+    </div>
+
+    <!-- 遊戲主區域 -->
+    <div class="canvas-container">
+        <canvas id="gameCanvas" width="850" height="250"></canvas> <!-- 題目繪製區域 -->
+
+        <!-- 答案輸入區 -->
+        <div class="input-group">
+            <label style="font-weight:bold; font-size:1.2em;">
+                <span class="zh">答案:</span>
+                <span class="en">Answer:</span>
+            </label>
+            <input type="number" id="userAnswer" data-placeholder-zh="輸入答案" data-placeholder-en="Enter answer"
+                step="any">
+            <!-- 用戶答案輸入框 -->
+            <button class="btn-submit" onclick="checkAnswer()">
+                <span class="zh">提交</span>
+                <span class="en">Submit</span>
+            </button>
+            <button id="showAnswerBtn" class="btn-show-answer" onclick="showAnswer()" style="display: none;">
+                <span class="zh">顯示答案</span>
+                <span class="en">Show Answer</span>
+            </button>
+        </div>
+
+        <!-- 反饋資訊顯示區 -->
+        <div class="feedback" id="feedbackArea"></div>
+    </div>
+
+    <!-- 成績單按鈕 -->
+    <button class="btn-report" onclick="showReport()">
+        <span class="zh">📊 成績單</span>
+        <span class="en">📊 Report Card</span>
+    </button>
+    <!-- 重置進度按鈕 -->
+    <button class="btn-reset" id="btnReset" onclick="handleReset()">
+        <span class="zh">⚠️ 重置所有進度</span>
+        <span class="en">⚠️ Reset All Progress</span>
+    </button>
+
+    <!-- 報告視窗 (模態框) -->
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeReport()">×</button>
+            <h2>
+                <span class="zh">成績單</span>
+                <span class="en">Report Card</span>
+            </h2>
+            <p style="color:gray; font-size:0.9em;">
+                <span class="zh">請截圖此頁面提交</span>
+                <span class="en">Please screenshot this for submission</span>
+            </p>
+            <hr style="border:0; border-top:2px solid #333; margin:15px 0;">
+
+            <!-- 統計數據網格 -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <small>
+                        <span class="zh">最終分數</span>
+                        <span class="en">Final Score</span>
+                    </small><br>
+                    <strong style="font-size:1.4em; color:blue;" id="repScore">0</strong>
+                </div>
+                <div class="stat-box">
+                    <small>
+                        <span class="zh">總題數</span>
+                        <span class="en">Attempts</span>
+                    </small><br>
+                    <strong id="repTotal">0</strong>
+                </div>
+                <div class="stat-box">
+                    <small>
+                        <span class="zh">正確題數</span>
+                        <span class="en">Correct</span>
+                    </small><br>
+                    <strong style="color:green;" id="repCorrect">0</strong>
+                </div>
+                <div class="stat-box">
+                    <small>
+                        <span class="zh">正確率</span>
+                        <span class="en">Accuracy</span>
+                    </small><br>
+                    <strong id="repAcc">0%</strong>
+                </div>
+            </div>
+            <p style="font-size:0.8em; color:#aaa;" id="repTime"></p> <!-- 顯示當前時間 -->
+            <button class="btn-submit" onclick="closeReport()">
+                <span class="zh">繼續練習</span>
+                <span class="en">Continue</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
