@@ -1,10 +1,9 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 確保響應式顯示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 確保響應式顯示，適應不同設備螢幕 -->
     <title>百分比練習作業</title>
     <meta name="title-zh" content="百分比轉變練習">
     <meta name="title-en" content="Percentage Change Practice">
@@ -12,7 +11,7 @@
 </head>
 
 <body>
-    <!-- 語言切換按鈕 -->
+    <!-- 語言切換按鈕 - 右上角，可切換中英文顯示 -->
     <div class="lang-switch">
         <button id="btn-lang" class="lang-btn">
             <span class="zh">EN</span>
@@ -25,7 +24,7 @@
         <span class="en">Percentage Change</span>
     </h1>
 
-    <!-- 狀態列：顯示目標、分數和正確題數 -->
+    <!-- 狀態列：顯示目標分數、當前分數和正確題數 -->
     <div class="status-bar">
         <div class="status-item goal-text">
             <span class="zh">目標: 150</span>
@@ -43,16 +42,16 @@
         </div>
     </div>
 
-    <!-- 進度條：顯示達成目標的進度 -->
+    <!-- 進度條：視覺化顯示達成目標的進度 -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
     </div>
 
-    <!-- 遊戲主區域 -->
+    <!-- 遊戲主區域：包含題目顯示和答案輸入 -->
     <div class="canvas-container">
-        <canvas id="gameCanvas" width="850" height="250"></canvas> <!-- 題目繪製區域 -->
+        <canvas id="gameCanvas" width="850" height="250"></canvas> <!-- 題目繪製區域，使用canvas動態生成題目 -->
 
-        <!-- 答案輸入區 -->
+        <!-- 答案輸入區：包含輸入框和提交按鈕 -->
         <div class="input-group">
             <label style="font-weight:bold; font-size:1.2em;">
                 <span class="zh">答案:</span>
@@ -60,7 +59,7 @@
             </label>
             <input type="number" id="userAnswer" data-placeholder-zh="輸入答案" data-placeholder-en="Enter answer"
                 step="any">
-            <!-- 用戶答案輸入框 -->
+            <!-- 用戶答案輸入框，支持任意數值輸入 -->
             <button class="btn-submit" onclick="checkAnswer()">
                 <span class="zh">提交</span>
                 <span class="en">Submit</span>
@@ -71,22 +70,22 @@
             </button>
         </div>
 
-        <!-- 反饋資訊顯示區 -->
+        <!-- 反饋資訊顯示區：顯示答案正確與否的即時反饋 -->
         <div class="feedback" id="feedbackArea"></div>
     </div>
 
-    <!-- 成績單按鈕 -->
+    <!-- 成績單按鈕：點擊顯示練習統計數據 -->
     <button class="btn-report" onclick="showReport()">
         <span class="zh">📊 成績單</span>
         <span class="en">📊 Report Card</span>
     </button>
-    <!-- 重置進度按鈕 -->
+    <!-- 重置進度按鈕：重置所有練習記錄 -->
     <button class="btn-reset" id="btnReset" onclick="handleReset()">
         <span class="zh">⚠️ 重置所有進度</span>
         <span class="en">⚠️ Reset All Progress</span>
     </button>
 
-    <!-- 報告視窗 (模態框) -->
+    <!-- 報告視窗 (模態框)：顯示詳細的練習統計數據 -->
     <div class="modal-overlay" id="reportModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeReport()">×</button>
@@ -100,7 +99,7 @@
             </p>
             <hr style="border:0; border-top:2px solid #333; margin:15px 0;">
 
-            <!-- 統計數據網格 -->
+            <!-- 統計數據網格：顯示各項練習指標 -->
             <div class="stats-grid">
                 <div class="stat-box">
                     <small>

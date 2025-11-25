@@ -12,15 +12,23 @@ let state = {
     canShowAnswer: false  // 是否允許顯示答案
 };
 
-// 重置按鈕的狀態計數器
+// === 重置按鈕的狀態計數器 ===
 let resetClickCount = 0;   // 重置按鈕點擊次數
 let resetTimeout = null;   // 重置按鈕計時器
+
+// === 標題點擊計數器 ===
+let titleClickCount = 0;
+
+// === DOM 元素引用 ===
+const titleElement = document.querySelector('h1');
+const answerBtn = document.getElementById('showAnswerBtn');
+
 
 // === Canvas 設定 ===
 const canvas = document.getElementById('gameCanvas');  // 遊戲畫布元素
 const ctx = canvas.getContext('2d');  // 畫布繪圖上下文
 
-// 字體設定
+// === 字體設定 ===
 let fontLabel = "bold 16px 'Comic Sans MS', sans-serif";  // 標籤字體
 let fontValue = "bold 24px 'Comic Sans MS', sans-serif";  // 數值字體
 let fontFactor = "bold 20px 'Comic Sans MS', sans-serif"; // 比例字體
@@ -67,7 +75,7 @@ function init() {
     loadState();  // 加載保存的狀態
     updateUI();   // 更新界面顯示
 
-    // 初始化输入框占位符
+    // 初始化輸入框占位符
     updateInputPlaceholder();
 
     // 語言切換功能
@@ -76,10 +84,10 @@ function init() {
         const langBtn = document.getElementById('btn-lang');
         const body = document.body;
 
-        // 切换语言类
+        // 切換語言類別
         body.classList.toggle('english');
 
-        // 更新标签栏标题
+        // 更新標籤欄標題
         if (body.classList.contains('english')) {
             document.title = document.querySelector('meta[name="title-en"]').content;
         } else {
@@ -87,18 +95,18 @@ function init() {
         }
 
         if (isEnglish) {
-            // 切换到中文
+            // 切換到中文
             document.body.classList.remove('english');
             langBtn.classList.remove('active');
         } else {
-            // 切换到英文
+            // 切換到英文
             document.body.classList.add('english');
             langBtn.classList.add('active');
         }
 
         updateInputPlaceholder();
 
-        // 更新提示文本语言
+        // 更新提示文本語言
         const fb = document.getElementById('feedbackArea');
         if (fb.innerHTML) {
             fb.innerHTML = fb.innerHTML
@@ -113,11 +121,29 @@ function init() {
         }
     });
 
-    // 初始化时设置正确的active状态
+    // 初始化時設置正確的active狀態
     window.addEventListener('load', function () {
         const langBtn = document.getElementById('btn-lang');
         if (document.body.classList.contains('english')) {
             langBtn.classList.add('active');
+        }
+    });
+
+    // 標題點擊事件處理
+
+    titleElement.addEventListener('click', () => {
+        titleClickCount++;
+        const isBtnVisible = answerBtn.style.display !== 'none';
+
+        // 按鈕隱藏時，點擊5次顯示
+        if (!isBtnVisible && titleClickCount >= 5) {
+            answerBtn.style.display = 'flex';
+            titleClickCount = 0;
+        }
+        // 按鈕顯示時，點擊5次隱藏
+        else if (isBtnVisible && titleClickCount >= 5) {
+            answerBtn.style.display = 'none';
+            titleClickCount = 0;
         }
     });
     setupInputHandling(); // 設置輸入處理
